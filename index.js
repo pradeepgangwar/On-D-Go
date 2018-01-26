@@ -56,7 +56,7 @@ app.post('/webhook/', function (req, res) {
 					
 						var apiai = require('apiai');
 
-						var app = apiai('3a25958e736d4d52b244850761f77bb6');
+						var app2 = apiai('3a25958e736d4d52b244850761f77bb6');
 
 						const sendEventToApiAi = (event, sessionId) => {
 							return new Promise(function(resolve, reject) {
@@ -66,7 +66,7 @@ app.post('/webhook/', function (req, res) {
 									"data": event.data
 								};
 
-								var request = app.eventRequest(eventArg, {sessionId: sessionId});
+								var request = app2.eventRequest(eventArg, {sessionId: sessionId});
 
 								request.on('response', function(response) {
 									console.log("sendEventToApiAi: response=" + JSON.stringify(response));
