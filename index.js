@@ -67,7 +67,7 @@ app.post('/webhook/', function (req, res) {
 					});
 
 					request2.on('error', function(error) {
-						console.log(error);
+						sendTextMessage(sender, "no response");
 					});
 
 					request2.end();
