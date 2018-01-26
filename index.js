@@ -30,13 +30,32 @@ app.post('/webhook/', function (req, res) {
     let messaging_events = req.body.entry[0].messaging
     for (let i = 0; i < messaging_events.length; i++) {
 	    let event = req.body.entry[0].messaging[i]
-	    let sender = event.sender.id
-	    if (event.message && event.message.text) {
-            let text = event.message.text
-            if(text === "Hi" || text === "Hello"){
-                sendTextMessage(sender, "Bhaag Chutiye");
+        let sender = event.sender.id
+
+        request({
+            url: "https://graph.facebook.com/v2.6/" + sender,
+            qs: {
+                access_token : token,
+                fields: "first_name"
+            },
+            method: "GET",
+    
+        }, function(error, response, body) {
+            if(error){
+                console.log("error getting username")
+            } else{
+                var bodyObj = JSON.parse(body)
+                name = bodyObj.first_name
+                if (event.message && event.message.text) {
+                    let text = event.message.text
+                    if(text == "Hi" || text == "Hello"){
+                        sendTextMessage(sender, "Hi");
+                        sendTextMessage(sender, name);
+                        sendTextMessage(sender, "Whatsup?");
+                    }
+                }
             }
-	    }
+        })
     }
     res.sendStatus(200)
 })
