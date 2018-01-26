@@ -45,7 +45,7 @@ app.post('/webhook/', function (req, res) {
                 console.log("error getting username")
             } else{
                 var bodyObj = JSON.parse(body)
-                name = bodyObj.first_name
+                let name = bodyObj.first_name
                 if (event.message && event.message.text) {
                     let text = event.message.text
                     if(text == "Hi" || text == "Hello"){
