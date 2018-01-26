@@ -53,6 +53,23 @@ app.post('/webhook/', function (req, res) {
                         sendTextMessage(sender, name);
                         sendTextMessage(sender, "Whatsup?");
                     }
+					var apiai = require('apiai');
+
+					var app = apiai("3a25958e736d4d52b244850761f77bb6");
+
+					var request = app.textRequest(text, {
+						sessionId: '21'
+					});
+
+					request.on('response', function(response) {
+						sendTextMessage(sender, response);
+					});
+
+					request.on('error', function(error) {
+						console.log(error);
+					});
+
+					request.end();
                 }
             }
         })
@@ -80,6 +97,8 @@ function sendTextMessage(sender, text) {
 	    }
     })
 }
+
+
 
 // Spin up the server
 app.listen(app.get('port'), function() {
