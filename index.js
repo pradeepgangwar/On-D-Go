@@ -54,37 +54,6 @@ app.post('/webhook/', function (req, res) {
                         sendTextMessage(sender, "Whatsup?");
                     }
 					
-						var apiai = require('apiai');
-
-						var app2 = apiai('3a25958e736d4d52b244850761f77bb6');
-
-						const sendEventToApiAi = (event, sessionId) => {
-							return new Promise(function(resolve, reject) {
-
-								let eventArg = {
-									"name": event.type
-									"data": event.data
-								};
-
-								var request = app2.eventRequest(eventArg, {sessionId: sessionId});
-
-								request.on('response', function(response) {
-									console.log("sendEventToApiAi: response=" + JSON.stringify(response));
-									return resolve(response);
-								});
-
-								request.on('error', function(error) {
-									return reject(error);
-								});
-
-								request.end();
-							});
-						}
-
-						  let event = { type: text };
-
-						 //Send Event to apiai Intent.        
-						  sendEventToApiAi(event, sessionId);
 
                 }
             }
