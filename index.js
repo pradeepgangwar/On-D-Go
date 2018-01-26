@@ -3,7 +3,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
-const apiai = require('apiai');
 const app = express()
 
 app.set('port', (process.env.PORT || 5000))
@@ -55,22 +54,38 @@ app.post('/webhook/', function (req, res) {
                         sendTextMessage(sender, "Whatsup?");
                     }
 					
+						var apiai = require('apiai');
 
-					var app2 = apiai("3a25958e736d4d52b244850761f77bb6");
+						var app = apiai('3a25958e736d4d52b244850761f77bb6');
 
-					var request2 = app2.textRequest(text, {
-						sessionId: '21'
-					});
+						const sendEventToApiAi = (event, sessionId) => {
+							return new Promise(function(resolve, reject) {
 
-					request2.on('response', function(response) {
-						sendTextMessage(sender, response);
-					});
+								let eventArg = {
+									"name": event.type
+									"data": event.data
+								};
 
-					request2.on('error', function(error) {
-						sendTextMessage(sender, "no response");
-					});
+								var request = app.eventRequest(eventArg, {sessionId: sessionId});
 
-					request2.end();
+								request.on('response', function(response) {
+									console.log("sendEventToApiAi: response=" + JSON.stringify(response));
+									return resolve(response);
+								});
+
+								request.on('error', function(error) {
+									return reject(error);
+								});
+
+								request.end();
+							});
+						}
+
+						  let event = { type: text };
+
+						 //Send Event to apiai Intent.        
+						  sendEventToApiAi(event, sessionId);
+
                 }
             }
         })
