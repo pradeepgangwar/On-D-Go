@@ -93,14 +93,20 @@ app.post('/webhook/', function (req, res) {
 						setTimeout(function() {
 							sendTextMessage(sender, "3. Check pnr status say : pnr <10-digit-pnr>");
 						}, 300);
+						
+						setTimeout(function() {
+							sendTextMessage(sender, "4. Find trains between two stations say: trains from <source station code> to <destination station code> on <dd-mm-yyyy>");
+						}, 400);
 
 						setTimeout(function() {
 							sendTextMessage(sender, "OR");
-						}, 300);
+						}, 500);
 						
 						setTimeout(function() {
-							sendTextMessage(sender, "4. Simply Save your PNR for no further hassle : save pnr <10-digit-pnr>");
-						}, 400);
+							sendTextMessage(sender, "5. Simply Save your PNR for no further hassle : save pnr <10-digit-pnr>");
+						}, 600);
+						
+						
 						
 					}
 
@@ -234,6 +240,7 @@ app.post('/webhook/', function (req, res) {
 									sendTextMessage(sender, "PNR SAVED :)");
 									sendTextMessage(sender, "To see all your ticket info : my ticket status");
 									sendTextMessage(sender, "To Check the status of your train : my train status");
+									sendTextMessage(sender, "While you are in train check time to your next station : my next station")
 								}
 							})
 						}
