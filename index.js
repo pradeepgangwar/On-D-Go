@@ -234,8 +234,8 @@ app.post('/webhook/', function (req, res) {
 						if(name != null) {
 							client.query('SELECT * FROM PNR WHERE firstname='+name, function(err, result) {
 								console.log(result);
-								if(result.length > 0) {
-									if(result) 
+								if(result) {
+									
 										sendTextMessage(sender, "You already have a pnr saved");
 								}
 								else {
