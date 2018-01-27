@@ -196,27 +196,27 @@ app.post('/webhook/', function (req, res) {
                                     sendTextMessage(sender, "This is not a valid pnr")
                                 }
                                 else {
-									setTimeout(function() {
+									//setTimeout(function() {
 										sendTextMessage(sender, "Train: "+bodyObj.train.name+" - "+bodyObj.train.number )
-									},100);
-									setTimeout(function() {
+									//},100);
+									//setTimeout(function() {
 										sendTextMessage(sender, "DOJ: "+bodyObj.doj)
-									},200);
-									setTimeout(function() {
+									//},200);
+									//setTimeout(function() {
 										if(bodyObj.chart_prepared==true)
 											sendTextMessage(sender, "CHART PREPARED")
 									
 										else
 											sendTextMessage(sender, "CHART NOT PREPARED")
-									},300);
+									//},300);
 									var j = 0;
 									for(var i=0;i<bodyObj.total_passengers;i++)
 									{
 										j++;
-										setTimeout(function() {
+										//setTimeout(function() {
 											if(bodyObj.passengers[i].current_status)
 													sendTextMessage(sender, "Passenger " + j +": "+bodyObj.passengers[i].current_status)	
-										},200);	
+										//},200);	
 									}
                                 }
                             }
