@@ -98,11 +98,7 @@ app.post('/webhook/', function (req, res) {
 							sendTextMessage(sender, "arriving <station_code> <hours_window>");
 						}, 400);
 						setTimeout(function() {
-<<<<<<< HEAD
 							sendTextMessage(sender, "3. Check pnr status say:");
-=======
-							sendTextMessage(sender, "3. To get pnr status say:");
->>>>>>> a1cc42baac9a0a5c3cb4ce796dcf7f273ac80cca
 						}, 500);
 						setTimeout(function() {
 							sendTextMessage(sender, "pnr <10-digit-pnr>");
@@ -213,11 +209,13 @@ app.post('/webhook/', function (req, res) {
 										else
 											sendTextMessage(sender, "CHART NOT PREPARED")
 									},300);
+									var j = 0;
 									for(var i=0;i<bodyObj.total_passengers;i++)
 									{
+										j++;
 										setTimeout(function() {
 											if(bodyObj.passengers[i].current_status)
-													sendTextMessage(sender, "Passenger " + Number(i)+Number(1) +": "+bodyObj.passengers[i].current_status)	
+													sendTextMessage(sender, "Passenger " + j +": "+bodyObj.passengers[i].current_status)	
 										},200);	
 									}
                                 }
