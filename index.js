@@ -88,14 +88,14 @@ app.post('/webhook/', function (req, res) {
 					}
 					else if(line.match(/train/g))
 					{
-						sendTextMessage(sender, "1. For pnr say: pnr <your-pnr-number>");
+						sendTextMessage(sender, "1. For live status of train say: train <train_no> <date-in DD-MM-YYYY>");
 					}
 					else if(line.match(/pnr/g))
 					{
                         request({
-                            url: "https://api.railwayapi.com/v2/pnr-status/pnr/"+line.split(" ")[1]+"/apikey/a32b7zrczw/",
+                            url: "https://api.railwayapi.com/v2/live/train/"+line.split(" ")[1]+"/date/"+line.split(" ")[2]+"/apikey/a32b7zrczw/",
                             qs: {
-                                fields: "from_station.name"
+                                fields: "position"
                             },
                             method: "GET",
                 
@@ -105,7 +105,7 @@ app.post('/webhook/', function (req, res) {
                             }
                             else {
                                 var bodyObj = JSON.parse(body)
-                                let name = bodyObj.from_station.name
+                                let name = bodyObj.position
                                 console.log(name)
                                 sendTextMessage(sender, name);
                             }
