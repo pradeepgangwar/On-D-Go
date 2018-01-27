@@ -84,7 +84,7 @@ function sendTextMessage(sender, text) {
 		method: 'POST',
 		json: {
             recipient: {id:sender},
-            timestamp: 1517019190,
+            timestamp: 1516999810,
 			message: messageData,
 		}
 	}, function(error, response, body) {
