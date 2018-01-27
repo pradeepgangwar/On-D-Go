@@ -59,6 +59,8 @@ app.post('/webhook/', function (req, res) {
 			} else{
 				var bodyObj = JSON.parse(body)
 				let name = bodyObj.first_name
+				let timeZone = bodyObj.timezone
+				console.log("TimeZone " + timeZone);
 				if (event.message && event.message.text) {
 					let text = event.message.text
 					console.log("Sender ID: " + sender + " " + name);
