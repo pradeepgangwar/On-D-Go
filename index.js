@@ -295,6 +295,26 @@ app.post('/webhook/', function (req, res) {
 							}
 						})
 					}
+
+					else if(line.split(" ")[0].match(/update/g) && line.split(" ")[1].match(/pnr/g)) {
+						var pnrNumber = line.split(" ")[2];
+						client.query("SELECT * FROM pnr WHERE firstname='"+name+"'", function(err, result) {
+							if(result.rows.length > 0) {
+								client.query("UPDATE PNR SET pnr='"+pnrNumber+"' WHERE firstname='"+name+"'", function(err,result){
+									if(err){
+										console.log(err)
+									}
+									else {
+										sendTextMessage(sender, "Update your pnr with "+pnrNumber);
+									}
+								})
+							}
+							else {
+								sendTextMessage(sender, "You don't any existing entry for pnr. Add your first pnr by: save pnr <pnr_number>."
+									" And we will remember your pnr.")
+							}
+						})
+					}
 				}
 			}
 		})
