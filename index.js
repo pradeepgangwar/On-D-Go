@@ -233,6 +233,8 @@ app.post('/webhook/', function (req, res) {
                     	var pnrNumber = line.split(" ")[2];
                     	var query = client.query("INSERT INTO PNR(UserID, firstname, pnr) values($1, $2, $3)", [sender, name, pnrNumber]);
                     	sendTextMessage(sender, "pnr saved, for information about your train, just type in - my train status");
+                    	var q2 = client.query("SELECT firstname, pnr FROM PNR WHERE firstname=name AND pnr=pnrNumber");
+                    	sendTextMessage(sender, q2);
                     }
 				}
 			}
