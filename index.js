@@ -232,8 +232,8 @@ app.post('/webhook/', function (req, res) {
 					else if(line.split(" ")[0].match(/save/g) && line.split(" ")[1].match(/pnr/g)) {
 						var pnrNumber = line.split(" ")[2];
 						if(name != null) {
-							client.query('SELECT * FROM PNR WHERE firstname='+name, function(err, result) {
-								if(err) throw err;
+							client.query('SELECT * FROM PNR WHERE firstname="Gagan"', function(err, result) {
+								if(err) console.log(err);
 								console.log(result);
 								// if(result) {
 									
