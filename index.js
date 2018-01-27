@@ -89,7 +89,7 @@ app.post('/webhook/', function (req, res) {
 					{
                         sendTextMessage(sender, "1. For live status of train say:");
                         setTimeout(function() {
-							sendTextMessage(sender, " train <train_no> <date-in DD-MM-YYYY>");
+							sendTextMessage(sender, " status <train_no> <date-in DD-MM-YYYY>");
                         }, 200);
                         setTimeout(function() {
 							sendTextMessage(sender, "2. To get list of trains departuring at a window of given hours from given station (max 4 hrs)");
