@@ -205,7 +205,7 @@ app.post('/webhook/', function (req, res) {
 									for(var i=0;i<bodyObj.total_passengers;i++)
 									{
 											if(bodyObj.passengers[i].current_status)
-												sendTextMessage(sender, "Passenger " + i+1 +": "+bodyObj.passengers[i].current_status)
+												sendTextMessage(sender, "Passenger " + parseInt(parseInt(i)+parseInt(1)) +": "+bodyObj.passengers[i].current_status)
 									}
                                 }
                             }
