@@ -61,8 +61,10 @@ app.post('/webhook/', function (req, res) {
 				let name = bodyObj.first_name
 				if (event.message && event.message.text) {
 					let text = event.message.text
-					text = text.toLowerCase();
-					if(text.match(/hi/g) || text.match(/hello/g) || text.match(/help/g)) {
+					console.log(sender);
+					console.log(line);
+					var line = text.toLowerCase();
+					if(line.match(/hi/g) || line.match(/hello/g) || line.match(/help/g)) {
 						sendTextMessage(sender, "Hey " + name + "!");
 						setTimeout(function() {
 							sendTextMessage(sender, "I can help you keep track of your daily routine and make sure they're done in time!");
@@ -72,7 +74,7 @@ app.post('/webhook/', function (req, res) {
 						}, 300);
 						var query = client.query("INSERT INTO userData(firstname) values($1)", [name]);
 					}
-					else if(text.match(/help/g)) {
+					else if(line.match(/help/g)) {
 						sendTextMessage(sender, "Fuck help");
 					}
 
