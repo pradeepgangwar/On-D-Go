@@ -38,16 +38,6 @@ client.query("CREATE TABLE IF NOT EXISTS userData(UserID varchar(100), firstname
 
 const token = process.env.FB_PAGE_ACCESS_TOKEN
 
-curl -X POST -H "Content-Type: application/json" -d '{
-"setting_type":"call_to_actions",
-"thread_state":"new_thread",
-"call_to_actions":[
- {
-  "payload":"Hi"
- }
-]
-}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token="+token
-
 app.post('/webhook/', function (req, res) {
 	let messaging_events = req.body.entry[0].messaging
 	for (let i = 0; i < messaging_events.length; i++) {
@@ -183,6 +173,28 @@ app.post('/webhook/', function (req, res) {
                         })
                     }
                     
+					else if(line.match(/pnr/g))
+					{
+                        request({
+                            url: "https://api.railwayapi.com/v2/pnr-status/pnr/"+line.split(" ")[1]+"/apikey/a32b7zrczw/",
+                            method: "GET",
+                
+                        }, function (error, response, body) {
+                            if (error) {
+                                console.log(error)
+                            }
+                            else {
+                                var bodyObj = JSON.parse(body)
+                                var times;
+                                if(bodyObj.response_code == 404) {
+                                    sendTextMessage(sender, "This is not a valid pnr")
+                                }
+                                else {
+                                    sendTextMessage(sender, "Train: "+bodyObj.train.name+" - "+bodyObj.train.number )
+                                }
+                            }
+                        })
+                    }
 
 				}
 			}
