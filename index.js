@@ -64,13 +64,6 @@ app.post('/webhook/', function (req, res) {
 						sendTextMessage(sender, name);
 						sendTextMessage(sender, "Whatsup?");
 						var query = client.query("INSERT INTO userData(firstname) values($1)", [name]);
-						// query.on("row", function (row, result) {
-						// 	result.addRow(row);
-						// });
-						// query.on("end", function (result) {
-						// 	console.log(JSON.stringify(result.rows, null, "    "));
-						// 	client.end();
-						// });
 					}
 				}
 			}
