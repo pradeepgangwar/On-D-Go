@@ -64,7 +64,7 @@ app.post('/webhook/', function (req, res) {
 					console.log(sender);
 					console.log(line);
 					var line = text.toLowerCase();
-					if(line.match(/hi/g) || line.match(/hello/g) || line.match(/help/g)) {
+					if(line.match(/hi/g) || line.match(/hello/g) || line.match(/hey/g)) {
 						sendTextMessage(sender, "Hey " + name + "!");
 						setTimeout(function() {
 							sendTextMessage(sender, "I can help you keep track of your daily routine and make sure they're done in time!");
