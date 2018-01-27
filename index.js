@@ -136,7 +136,12 @@ app.post('/webhook/', function (req, res) {
                             else {
                                 var bodyObj = JSON.parse(body)
                                 for (var i=0; i<3; i++) {
-                                    sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].actarr)
+                                    if(bodyObj.trains[i].actarr === "Source") {
+                                        sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].schdep + " delayed by: " + bodyObj.trains[i].delayarr)
+                                    }
+                                    else {
+                                        sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].actarr + " was delayed by: " + bodyObj.trains[i].delayarr)                  
+                                    }
                                 }
                                 console.log(bodyObj.trains[i].name)
                             }
