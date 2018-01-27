@@ -98,7 +98,11 @@ app.post('/webhook/', function (req, res) {
 							sendTextMessage(sender, "arriving <station_code> <hours_window>");
 						}, 400);
 						setTimeout(function() {
+<<<<<<< HEAD
 							sendTextMessage(sender, "3. Check pnr status say:");
+=======
+							sendTextMessage(sender, "3. To get pnr status say:");
+>>>>>>> a1cc42baac9a0a5c3cb4ce796dcf7f273ac80cca
 						}, 500);
 						setTimeout(function() {
 							sendTextMessage(sender, "pnr <10-digit-pnr>");
@@ -213,8 +217,8 @@ app.post('/webhook/', function (req, res) {
 									{
 										setTimeout(function() {
 											if(bodyObj.passengers[i].current_status)
-												sendTextMessage(sender, "Passenger " + i+1 +": "+bodyObj.passengers[i].current_status)
-										},100*(i+1)+300);
+													sendTextMessage(sender, "Passenger " + parseInt(i)+parseInt(1)) +": "+bodyObj.passengers[i].current_status)	
+										},200);	
 									}
                                 }
                             }
