@@ -61,11 +61,15 @@ app.post('/webhook/', function (req, res) {
 				let name = bodyObj.first_name
 				if (event.message && event.message.text) {
 					let text = event.message.text
-					if(text == "Hi" || text == "Hello") {
-						sendTextMessage(sender, "Hi");
-						sendTextMessage(sender, name);
-						sendTextMessage(sender, "Whatsup?");
+					text = text.toLowerCase();
+					if(text == "hi" || text == "hello" || text == "hey" ) {
+						sendTextMessage(sender, "Hey " + name + "!");
+						sendTextMessage(sender, "I can help you keep track of your daily routine and make sure they're done in time!");
+						sendTextMessage(sender, "Type help to see  what I can do for you :)");
 						var query = client.query("INSERT INTO userData(firstname) values($1)", [name]);
+					}
+					if(text == "help") {
+						sendTextMessage(sender, "Fuck help");
 					}
 				}
 			}
@@ -84,7 +88,6 @@ function sendTextMessage(sender, text) {
 		method: 'POST',
 		json: {
             recipient: {id:sender},
-            timestamp: 1517019190,
 			message: messageData,
 		}
 	}, function(error, response, body) {
