@@ -185,7 +185,7 @@ app.post('/webhook/', function (req, res) {
                         })
                     }
                     
-					else if(line.match(/pnr/g))
+					else if(line.split(" ")[0].match(/pnr/g))
 					{
                         request({
                             url: "https://api.railwayapi.com/v2/pnr-status/pnr/"+line.split(" ")[1]+"/apikey/a32b7zrczw/",
