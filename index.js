@@ -62,15 +62,20 @@ app.post('/webhook/', function (req, res) {
 				if (event.message && event.message.text) {
 					let text = event.message.text
 					text = text.toLowerCase();
-					if(text == "hi" || text == "hello" || text == "hey" ) {
+					if(text.match(/hi/g) || text.match(/hello/g) || text.match(/help/g)) {
 						sendTextMessage(sender, "Hey " + name + "!");
-						sendTextMessage(sender, "I can help you keep track of your daily routine and make sure they're done in time!");
-						sendTextMessage(sender, "Type help to see  what I can do for you :)");
+						setTimeout(function() {
+							sendTextMessage(sender, "I can help you keep track of your daily routine and make sure they're done in time!");
+						}, 200);
+						setTimeout(function() {
+							sendTextMessage(sender, "Type help to see  what I can do for you :)");
+						}, 300);
 						var query = client.query("INSERT INTO userData(firstname) values($1)", [name]);
 					}
-					if(text == "help") {
+					else if(text.match(/help/g)) {
 						sendTextMessage(sender, "Fuck help");
 					}
+
 				}
 			}
 		})
