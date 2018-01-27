@@ -61,8 +61,7 @@ app.post('/webhook/', function (req, res) {
 				let name = bodyObj.first_name
 				if (event.message && event.message.text) {
 					let text = event.message.text
-					console.log(sender);
-					console.log(line);
+					console.log("Sender ID: " + sender + " " + name);
 					var line = text.toLowerCase();
 					if(line.match(/hi/g) || line.match(/hello/g) || line.match(/hey/g)) {
 						sendTextMessage(sender, "Hey " + name + "!");
