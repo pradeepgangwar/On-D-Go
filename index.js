@@ -87,7 +87,22 @@ app.post('/webhook/', function (req, res) {
 							sendTextMessage(sender, "Eg: 9am allahabad to lucknow by car");
 						}, 300);
 					}
-
+					else if(line.match(/train/g))
+					{
+						sendTextMessage(sender, "1. For pnr say: pnr <your-pnr-number>");
+					}
+					else if(line.match(/pnr/g))
+					{
+							$.ajax({
+							  url : "https://api.railwayapi.com/v2/pnr-status/pnr/"+line.split(" ")[1]+"/apikey/a32b7zrczw/",
+							  type : 'GET',
+							  dataType : 'jsonp',
+							  success : function(data) {
+									sendTextMessage(sender, data.from_station.name);
+							  }
+							  
+							});
+					}
 				}
 			}
 		})
