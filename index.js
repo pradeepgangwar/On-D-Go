@@ -310,8 +310,7 @@ app.post('/webhook/', function (req, res) {
 								})
 							}
 							else {
-								sendTextMessage(sender, "You don't any existing entry for pnr. Add your first pnr by: save pnr <pnr_number>."
-									" And we will remember your pnr.")
+								sendTextMessage(sender, "You don't any existing entry for pnr. Add your first pnr by: save pnr <pnr_number>. And we will remember your pnr.")
 							}
 						})
 					}
