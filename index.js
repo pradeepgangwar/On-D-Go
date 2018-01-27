@@ -59,18 +59,18 @@ app.post('/webhook/', function (req, res) {
 				let name = bodyObj.first_name
 				if (event.message && event.message.text) {
 					let text = event.message.text
-					if(text == "Hi" || text == "Hello"){
+					if(text == "Hi" || text == "Hello") {
 						sendTextMessage(sender, "Hi");
 						sendTextMessage(sender, name);
 						sendTextMessage(sender, "Whatsup?");
 						var query = client.query("INSERT INTO userData(Name) values($1)", [name]);
-						query.on("row", function (row, result) {
-							result.addRow(row);
-						});
-						query.on("end", function (result) {
-							console.log(JSON.stringify(result.rows, null, "    "));
-							client.end();
-						});
+						// query.on("row", function (row, result) {
+						// 	result.addRow(row);
+						// });
+						// query.on("end", function (result) {
+						// 	console.log(JSON.stringify(result.rows, null, "    "));
+						// 	client.end();
+						// });
 					}
 				}
 			}
