@@ -232,10 +232,10 @@ app.post('/webhook/', function (req, res) {
 					else if(line.split(" ")[0].match(/save/g) && line.split(" ")[1].match(/pnr/g)) {
 						var pnrNumber = line.split(" ")[2];
 						if(name != null) {
-							var q1 = client.query('SELECT * FROM PNR WHERE firstname='+name);
-							console.log(q1);
-							if(q1.length > 0) {
-								if(q1) 
+							client.query('SELECT * FROM PNR WHERE firstname='+name, function(err, result) {
+							console.log(result);
+							if(result.length > 0) {
+								if(result) 
 									sendTextMessage(sender, "You already have a pnr saved");
 							}
 							else {
