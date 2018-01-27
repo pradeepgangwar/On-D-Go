@@ -85,7 +85,7 @@ app.post('/webhook/', function (req, res) {
 							sendTextMessage(sender, "Eg: 9am allahabad to lucknow by car");
 						}, 300);
 					}
-					else if(line.match(/train/g))
+					else if(line.split(" ")[0].match(/train/g))
 					{
 						sendTextMessage(sender, "1. For live status of train say:");
 						setTimeout(function() {
@@ -111,7 +111,7 @@ app.post('/webhook/', function (req, res) {
 						}, 600);
 					}
 
-					else if(line.match(/status/g))
+					else if(line.split(" ")[0].match(/status/g))
 					{
 						request({
 							url: "https://api.railwayapi.com/v2/live/train/"+line.split(" ")[1]+"/date/"+line.split(" ")[2]+"/apikey/a32b7zrczw/",
@@ -247,6 +247,7 @@ app.post('/webhook/', function (req, res) {
 					else if(line.split(" ")[0].match(/my/g) && line.split(" ")[1].match(/train/g) && line.split(" ")[2].match(/status/g)) {
 						client.query("SELECT pnr FROM PNR WHERE firstname='"+name+"'", function(err, result) {
 							if(result.rows.length > 0) {
+								console.log(result);
 								sendTextMessage(sender, "You have pnr saved !")
 							}
 							else {
