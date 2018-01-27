@@ -34,7 +34,7 @@ var client = new pg.Client(conString);
 client.connect();
 
 
-client.query("CREATE TABLE IF NOT EXISTS userData(firstname varchar(100))");
+client.query("CREATE TABLE IF NOT EXISTS userData(UserID varchar(100), firstname varchar(100))");
 
 const token = process.env.FB_PAGE_ACCESS_TOKEN
 
@@ -71,10 +71,19 @@ app.post('/webhook/', function (req, res) {
 						setTimeout(function() {
 							sendTextMessage(sender, "Type help to see  what I can do for you :)");
 						}, 300);
-						var query = client.query("INSERT INTO userData(firstname) values($1)", [name]);
+						//var query = client.query("INSERT INTO userData(UserID, firstname) values($1, $2)", [sender, name]);
 					}
 					else if(line.match(/help/g)) {
 						sendTextMessage(sender, "Fuck help");
+					}
+					else if(line.split(" ")[1].match(/office/g)) {
+						sendTextMessage(sender, "This is how you can add ... ");
+						setTimeout(function() {
+							sendTextMessage(sender, "<Time> <From> to <To> by <Mode>");
+						}, 200);
+						setTimeout(function() {
+							sendTextMessage(sender, "Eg: 9am allahabad to lucknow by car");
+						}, 300);
 					}
 
 				}
