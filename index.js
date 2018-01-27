@@ -434,6 +434,32 @@ app.post('/webhook/', function (req, res) {
 							}
 						})				
 					}
+					
+					else if(line.split(" ")[1].match(/from/g) && line.split(" ")[3].match(/to/g) && line.split(" ")[5].match(/on/g))
+					{
+							request({
+							url: "https://api.railwayapi.com/v2/between/source/"+line.split(" ")[2]+"/dest/"+line.split(" ")[4]+"/date/"+line.split(" ")[6]+"/apikey/a32b7zrczw/",
+							method: "GET",
+
+						}, function (error, response, body) {
+							if (error) {
+								console.log(error)
+							}
+							else {
+								var bodyObj = JSON.parse(body)
+								var times;
+								if(bodyObj.response_code == 404) {
+									sendTextMessage(sender, "This is not a valid pnr")
+								}
+								else {
+									for(var i=0;i<bodyObj.trains.length;i++)
+									{
+										sendTextMessage(sender, "Train: "+bodyObj.trains[i].name+"/"+bodyObj.trains[i].number+"  Arrival-time: "+bodyObj.trains[i].dest_arrival_time+"  Departure-time: "+bodyObj.trains[i].src_departure_time)
+									}
+								}
+							}
+						})
+					}
 
 					else {
 						sendTextMessage(sender, "I don't seem to understand your query ... :/ Please Try Again");
