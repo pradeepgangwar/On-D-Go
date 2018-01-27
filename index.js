@@ -78,7 +78,7 @@ app.post('/webhook/', function (req, res) {
 					else if(line.match(/help/g)) {
 						sendTextMessage(sender, "Fuck help");
 					}
-					else if(line.split(" ")[1].match(/office/g)) {
+					else if(line.match(/add/g) && line.split(" ")[1].match(/office/g)) {
 						sendTextMessage(sender, "This is how you can add ... ");
 						setTimeout(function() {
 							sendTextMessage(sender, "<Time> <From> to <To> by <Mode>");
