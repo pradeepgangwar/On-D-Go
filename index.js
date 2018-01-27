@@ -34,7 +34,7 @@ var client = new pg.Client(conString);
 client.connect();
 
 
-client.query("CREATE TABLE IF NOT EXISTS userData(UserID varchar(100), firstname varchar(100))");
+client.query("CREATE TABLE IF NOT EXISTS PNR(UserID varchar(100), firstname varchar(100), pnr varchar(100))");
 
 const token = process.env.FB_PAGE_ACCESS_TOKEN
 
@@ -71,7 +71,7 @@ app.post('/webhook/', function (req, res) {
 						setTimeout(function() {
 							sendTextMessage(sender, "Type help to see  what I can do for you :)");
 						}, 300);
-						//var query = client.query("INSERT INTO userData(UserID, firstname) values($1, $2)", [sender, name]);
+						
 					}
 					else if(line.match(/help/g)) {
 						sendTextMessage(sender, "Fuck help");
@@ -102,6 +102,12 @@ app.post('/webhook/', function (req, res) {
 						}, 500);
 						setTimeout(function() {
 							sendTextMessage(sender, "pnr <10-digit-pnr>");
+						}, 600);
+						setTimeout(function() {
+							sendTextMessage(sender, "4. Simply Save your PNR");
+						}, 500);
+						setTimeout(function() {
+							sendTextMessage(sender, "save pnr <10-digit-pnr>");
 						}, 600);
                     }
                     
@@ -223,6 +229,10 @@ app.post('/webhook/', function (req, res) {
                         })
                     }
 
+                    else if(line.split(" ")[0].match(/save/g) && line.split(" ")[1].match(/pnr/g)) {
+                    	var pnrNumber = line.split(" ")[2];
+                    	var query = client.query("INSERT INTO PNR(UserID, firstname, pnr) values($1, $2, $3)", [sender, name, pnrNumber]);
+                    }
 				}
 			}
 		})
