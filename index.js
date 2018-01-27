@@ -34,7 +34,7 @@ var client = new pg.Client(conString);
 client.connect();
 
 
-client.query("CREATE TABLE IF NOT EXISTS userData(firstname varchar(100))");
+client.query("CREATE TABLE IF NOT EXISTS userData(UserID varchar(100), firstname varchar(100))");
 
 const token = process.env.FB_PAGE_ACCESS_TOKEN
 
@@ -61,12 +61,31 @@ app.post('/webhook/', function (req, res) {
 				let name = bodyObj.first_name
 				if (event.message && event.message.text) {
 					let text = event.message.text
-					if(text == "Hi" || text == "Hello") {
-						sendTextMessage(sender, "Hi");
-						sendTextMessage(sender, name);
-						sendTextMessage(sender, "Whatsup?");
-						var query = client.query("INSERT INTO userData(firstname) values($1)", [name]);
+					console.log("Sender ID: " + sender + " " + name);
+					var line = text.toLowerCase();
+					if(line.match(/hi/g) || line.match(/hello/g) || line.match(/hey/g)) {
+						sendTextMessage(sender, "Hey " + name + "!");
+						setTimeout(function() {
+							sendTextMessage(sender, "I can help you keep track of your daily routine and make sure they're done in time!");
+						}, 200);
+						setTimeout(function() {
+							sendTextMessage(sender, "Type help to see  what I can do for you :)");
+						}, 300);
+						//var query = client.query("INSERT INTO userData(UserID, firstname) values($1, $2)", [sender, name]);
 					}
+					else if(line.match(/help/g)) {
+						sendTextMessage(sender, "Fuck help");
+					}
+					else if(line.split(" ")[1].match(/office/g)) {
+						sendTextMessage(sender, "This is how you can add ... ");
+						setTimeout(function() {
+							sendTextMessage(sender, "<Time> <From> to <To> by <Mode>");
+						}, 200);
+						setTimeout(function() {
+							sendTextMessage(sender, "Eg: 9am allahabad to lucknow by car");
+						}, 300);
+					}
+
 				}
 			}
 		})
@@ -84,7 +103,6 @@ function sendTextMessage(sender, text) {
 		method: 'POST',
 		json: {
             recipient: {id:sender},
-            timestamp: 1516999810,
 			message: messageData,
 		}
 	}, function(error, response, body) {
