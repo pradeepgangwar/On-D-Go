@@ -83,7 +83,8 @@ function sendTextMessage(sender, text) {
 		qs: {access_token:token},
 		method: 'POST',
 		json: {
-			recipient: {id:sender},
+            recipient: {id:sender},
+            timestamp: 1517019190,
 			message: messageData,
 		}
 	}, function(error, response, body) {
