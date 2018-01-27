@@ -191,6 +191,16 @@ app.post('/webhook/', function (req, res) {
                                 }
                                 else {
                                     sendTextMessage(sender, "Train: "+bodyObj.train.name+" - "+bodyObj.train.number )
+									sendTextMessage(sender, "DOJ: "+bodyObj.doj)
+									if(bodyObj.chart_prepared==true)
+										sendTextMessage(sender, "CHART PREPARED")
+									else
+										sendTextMessage(sender, "CHART NOT PREPARED")
+									for(var i=0;i<bodyObj.total_passengers;i++)
+									{
+											if(bodyObj.passengers[i].current_status)
+												sendTextMessage(sender, "Passenger " + i +": "+bodyObj.passengers[i].current_status)
+									}
                                 }
                             }
                         })
