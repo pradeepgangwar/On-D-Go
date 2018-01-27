@@ -1,4 +1,4 @@
-![](BW.png)
+![](BW.png=250x250)
 
 # On-D-Go (Messenger Bot)
 
