@@ -89,8 +89,9 @@ app.post('/webhook/', function (req, res) {
 					else if(line.match(/train/g))
 					{
 						sendTextMessage(sender, "1. For live status of train say: train <train_no> <date-in DD-MM-YYYY>");
-					}
-					else if(line.match(/pnr/g))
+                    }
+                    
+					else if(line.match(/status/g))
 					{
                         request({
                             url: "https://api.railwayapi.com/v2/live/train/"+line.split(" ")[1]+"/date/"+line.split(" ")[2]+"/apikey/a32b7zrczw/",
@@ -110,7 +111,30 @@ app.post('/webhook/', function (req, res) {
                                 sendTextMessage(sender, name);
                             }
                         })
-					}
+                    }
+
+
+                    else if(line.match(/arriv/g))
+					{
+                        request({
+                            url: "https://api.railwayapi.com/v2/arrivals/station/"+line.split(" ")[1]+"/hours/"+line.split(" ")[2]+"/apikey/a32b7zrczw/",
+                            method: "GET",
+                
+                        }, function (error, response, body) {
+                            if (error) {
+                                console.log(error)
+                            }
+                            else {
+                                var bodyObj = JSON.parse(body)
+                                for (var i=0; i<3; i++) {
+                                    sendTextMessage("Train Name: "+bodyObj.trains[i].name)
+                                }
+                                console.log(bodyObj.trains[i].name)
+                            }
+                        })
+                    }
+                    
+
 				}
 			}
 		})
