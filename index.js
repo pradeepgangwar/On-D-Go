@@ -232,18 +232,20 @@ app.post('/webhook/', function (req, res) {
 					else if(line.split(" ")[0].match(/save/g) && line.split(" ")[1].match(/pnr/g)) {
 						var pnrNumber = line.split(" ")[2];
 						if(name != null) {
-								client.query('SELECT firstname FROM PNR WHERE firstname='+name, function(err, result) {
-                    			if(err) {
-                    				var query = client.query("INSERT INTO PNR(UserID, firstname, pnr) values($1, $2, $3)", [sender, name, pnrNumber]);
-                    				sendTextMessage(sender, "pnr saved, for information about your train, just type in - my train status");
-                    			}
-                    			sendTextMessage(sender, "You already have a pnr saved");
-                    		});
+							var q1 = client.query('SELECT firstname FROM PNR WHERE firstname='+name);
+							if(!q1) {
+								var query = client.query("INSERT INTO PNR(UserID, firstname, pnr) values($1, $2, $3)", [sender, name, pnrNumber]);
+								sendTextMessage(sender, "pnr saved, for information about your train, just type in - my train status");
+							}
+							else {
+								sendTextMessage(sender, "You already have a pnr saved");
+							}
 						}
 					}
 				}
 			}
-		})
+		}
+	})
 }
 res.sendStatus(200)
 })
