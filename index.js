@@ -233,12 +233,12 @@ app.post('/webhook/', function (req, res) {
 						var pnrNumber = line.split(" ")[2];
 						if(name != null) {
 							var q1 = client.query('SELECT firstname FROM PNR WHERE firstname='+name);
-							if(!q1) {
-								var query = client.query("INSERT INTO PNR(UserID, firstname, pnr) values($1, $2, $3)", [sender, name, pnrNumber]);
-								sendTextMessage(sender, "pnr saved, for information about your train, just type in - my train status");
+							if(q1) {
+								sendTextMessage(sender, "You already have a pnr saved");
 							}
 							else {
-								sendTextMessage(sender, "You already have a pnr saved");
+								var query = client.query("INSERT INTO PNR(UserID, firstname, pnr) values($1, $2, $3)", [sender, name, pnrNumber]);
+								sendTextMessage(sender, "pnr saved, for information about your train, just type in - my train status");
 							}
 						}
 					}
