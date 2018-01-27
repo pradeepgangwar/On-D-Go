@@ -97,6 +97,12 @@ app.post('/webhook/', function (req, res) {
 						setTimeout(function() {
 							sendTextMessage(sender, "arriving <station_code> <hours_window>");
 						}, 400);
+						setTimeout(function() {
+							sendTextMessage(sender, "3. Check pnr status say:");
+						}, 500);
+						setTimeout(function() {
+							sendTextMessage(sender, "pnr <10-digit-pnr>");
+						}, 600);
                     }
                     
 					else if(line.match(/status/g))
@@ -190,16 +196,25 @@ app.post('/webhook/', function (req, res) {
                                     sendTextMessage(sender, "This is not a valid pnr")
                                 }
                                 else {
-                                    sendTextMessage(sender, "Train: "+bodyObj.train.name+" - "+bodyObj.train.number )
-									sendTextMessage(sender, "DOJ: "+bodyObj.doj)
-									if(bodyObj.chart_prepared==true)
-										sendTextMessage(sender, "CHART PREPARED")
-									else
-										sendTextMessage(sender, "CHART NOT PREPARED")
+									setTimeout(function() {
+										sendTextMessage(sender, "Train: "+bodyObj.train.name+" - "+bodyObj.train.number )
+									},100);
+									setTimeout(function() {
+										sendTextMessage(sender, "DOJ: "+bodyObj.doj)
+									},200);
+									setTimeout(function() {
+										if(bodyObj.chart_prepared==true)
+											sendTextMessage(sender, "CHART PREPARED")
+									
+										else
+											sendTextMessage(sender, "CHART NOT PREPARED")
+									},300);
 									for(var i=0;i<bodyObj.total_passengers;i++)
 									{
+										setTimeout(function() {
 											if(bodyObj.passengers[i].current_status)
-												sendTextMessage(sender, "Passenger " + i +": "+bodyObj.passengers[i].current_status)
+												sendTextMessage(sender, "Passenger " + i+1 +": "+bodyObj.passengers[i].current_status)
+										},100*(i+1)+300);
 									}
                                 }
                             }
