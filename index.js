@@ -249,6 +249,46 @@ app.post('/webhook/', function (req, res) {
 							if(result.rows.length > 0) {
 								console.log(result);
 								sendTextMessage(sender, "Your pnr is : " + result.rows[0].pnr)
+								request({
+									url: "https://api.railwayapi.com/v2/pnr-status/pnr/"+result.rows[0].pnr+"/apikey/a32b7zrczw/",
+									method: "GET",
+
+								}, function (error, response, body) {
+									if (error) {
+										console.log(error)
+									}
+									else {
+										var bodyObj = JSON.parse(body)
+										var times;
+										if(bodyObj.response_code == 404) {
+											sendTextMessage(sender, "This is not a valid pnr")
+										}
+										else {
+									//setTimeout(function() {
+										sendTextMessage(sender, "Train: "+bodyObj.train.name+" - "+bodyObj.train.number )
+									//},100);
+									//setTimeout(function() {
+										sendTextMessage(sender, "DOJ: "+bodyObj.doj)
+									//},200);
+									//setTimeout(function() {
+										if(bodyObj.chart_prepared==true)
+											sendTextMessage(sender, "CHART PREPARED")
+
+										else
+											sendTextMessage(sender, "CHART NOT PREPARED")
+									//},300);
+									var j = 0;
+									for(var i=0;i<bodyObj.total_passengers;i++)
+									{
+										j++;
+										//setTimeout(function() {
+											if(bodyObj.passengers[i].current_status)
+												sendTextMessage(sender, "Passenger " + j +": "+bodyObj.passengers[i].current_status)	
+										//},200);	
+									}
+								}
+							}
+						})
 							}
 							else {
 								sendTextMessage(sender, "You haven't saved any pnr, save one by entering as follows - pnr <pnr-number>")
