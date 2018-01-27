@@ -217,7 +217,7 @@ app.post('/webhook/', function (req, res) {
 									{
 										setTimeout(function() {
 											if(bodyObj.passengers[i].current_status)
-													sendTextMessage(sender, "Passenger " + parseInt(i)+parseInt(1)) +": "+bodyObj.passengers[i].current_status)	
+													sendTextMessage(sender, "Passenger " + Number(i)+Number(1) +": "+bodyObj.passengers[i].current_status)	
 										},200);	
 									}
                                 }
