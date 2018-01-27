@@ -232,6 +232,7 @@ app.post('/webhook/', function (req, res) {
                     else if(line.split(" ")[0].match(/save/g) && line.split(" ")[1].match(/pnr/g)) {
                     	var pnrNumber = line.split(" ")[2];
                     	var query = client.query("INSERT INTO PNR(UserID, firstname, pnr) values($1, $2, $3)", [sender, name, pnrNumber]);
+                    	sendTextMessage(sender, "pnr saved, for information about your train, just type in - my train status");
                     }
 				}
 			}
