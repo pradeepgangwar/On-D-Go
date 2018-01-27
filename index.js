@@ -127,7 +127,7 @@ app.post('/webhook/', function (req, res) {
                             else {
                                 var bodyObj = JSON.parse(body)
                                 for (var i=0; i<3; i++) {
-                                    sendTextMessage("Train Name: "+bodyObj.trains[i].name)
+                                    sendTextMessage(sender, "Train Name: " + bodyObj.trains[i].name)
                                 }
                                 console.log(bodyObj.trains[i].name)
                             }
