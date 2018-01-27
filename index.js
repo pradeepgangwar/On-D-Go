@@ -116,7 +116,7 @@ app.post('/webhook/', function (req, res) {
                             else {
                                 var bodyObj = JSON.parse(body)
                                 let name = bodyObj.position
-                                if(name == "null") {
+                                if(name == null) {
                                     sendTextMessage(sender, "Sorry there is some error. Try again with valid train no.");
                                 }
                                 else {
