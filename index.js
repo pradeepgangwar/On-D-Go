@@ -59,7 +59,7 @@ app.post('/webhook/', function (req, res) {
 				var bodyObj = JSON.parse(body)
 				let name = bodyObj.first_name
 
-                if (event.message && event.message.text) {
+				if (event.message && event.message.text) {
 					let text = event.message.text
 					console.log("Sender ID: " + sender + " " + name);
 					var line = text.toLowerCase();
@@ -87,11 +87,11 @@ app.post('/webhook/', function (req, res) {
 					}
 					else if(line.match(/train/g))
 					{
-                        sendTextMessage(sender, "1. For live status of train say:");
-                        setTimeout(function() {
+						sendTextMessage(sender, "1. For live status of train say:");
+						setTimeout(function() {
 							sendTextMessage(sender, " status <train_no> <date-in DD-MM-YYYY>");
-                        }, 200);
-                        setTimeout(function() {
+						}, 200);
+						setTimeout(function() {
 							sendTextMessage(sender, "2. To get list of trains departuring at a window of given hours from given station (max 4 hrs)");
 						}, 300);
 						setTimeout(function() {
@@ -109,99 +109,99 @@ app.post('/webhook/', function (req, res) {
 						setTimeout(function() {
 							sendTextMessage(sender, "save pnr <10-digit-pnr>");
 						}, 600);
-                    }
-                    
+					}
+
 					else if(line.match(/status/g))
 					{
-                        request({
-                            url: "https://api.railwayapi.com/v2/live/train/"+line.split(" ")[1]+"/date/"+line.split(" ")[2]+"/apikey/a32b7zrczw/",
-                            qs: {
-                                fields: "position"
-                            },
-                            method: "GET",
-                
-                        }, function (error, response, body) {
-                            if (error) {
-                                console.log(error)
-                            }
-                            else {
-                                var bodyObj = JSON.parse(body)
-                                let name = bodyObj.position
-                                if(name == null) {
-                                    sendTextMessage(sender, "Sorry there is some error. Try again with valid train no.");
-                                }
-                                else {
-                                    sendTextMessage(sender, name);
-                                }
-                            }
-                        })
-                    }
+						request({
+							url: "https://api.railwayapi.com/v2/live/train/"+line.split(" ")[1]+"/date/"+line.split(" ")[2]+"/apikey/a32b7zrczw/",
+							qs: {
+								fields: "position"
+							},
+							method: "GET",
+
+						}, function (error, response, body) {
+							if (error) {
+								console.log(error)
+							}
+							else {
+								var bodyObj = JSON.parse(body)
+								let name = bodyObj.position
+								if(name == null) {
+									sendTextMessage(sender, "Sorry there is some error. Try again with valid train no.");
+								}
+								else {
+									sendTextMessage(sender, name);
+								}
+							}
+						})
+					}
 
 
-                    else if(line.match(/arriv/g))
+					else if(line.match(/arriv/g))
 					{
-                        request({
-                            url: "https://api.railwayapi.com/v2/arrivals/station/"+line.split(" ")[1]+"/hours/"+line.split(" ")[2]+"/apikey/a32b7zrczw/",
-                            method: "GET",
-                
-                        }, function (error, response, body) {
-                            if (error) {
-                                console.log(error)
-                            }
-                            else {
-                                var bodyObj = JSON.parse(body)
-                                var times;
-                                if(bodyObj.total == 0) {
-                                    sendTextMessage(sender, "No trains to show")
-                                }
-                                else {
-                                    if(bodyObj.trains.length > 3) {
-                                        times = 3;
-                                    }
-                                    else {
-                                        times = bodyObj.trains.length;
-                                    }
-                                    for (var i=0; i<times; i++) {
-                                        if(bodyObj.trains[i].actarr === "Source") {
-                                            if(bodyObj.trains[i].delayarr === "RIGHT TIME") {
-                                                sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].schdep + " No Delay")
-                                            }
-                                            else {
-                                                sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].schdep + " delayed by: " + bodyObj.trains[i].delayarr)                                            
-                                            }
-                                    }
-                                        else {
-                                            if(bodyObj.trains[i].delayarr === "RIGHT TIME") {
-                                                sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].actarr + " No Delay")                  
-                                            }
-                                            else {
-                                                sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].actarr + " was delayed by: " + bodyObj.trains[i].delayarr)                                                             
-                                            }
-                                        }
-                                    }
-                                    console.log(bodyObj.trains[i].name)
-                                }
-                            }
-                        })
-                    }
-                    
+						request({
+							url: "https://api.railwayapi.com/v2/arrivals/station/"+line.split(" ")[1]+"/hours/"+line.split(" ")[2]+"/apikey/a32b7zrczw/",
+							method: "GET",
+
+						}, function (error, response, body) {
+							if (error) {
+								console.log(error)
+							}
+							else {
+								var bodyObj = JSON.parse(body)
+								var times;
+								if(bodyObj.total == 0) {
+									sendTextMessage(sender, "No trains to show")
+								}
+								else {
+									if(bodyObj.trains.length > 3) {
+										times = 3;
+									}
+									else {
+										times = bodyObj.trains.length;
+									}
+									for (var i=0; i<times; i++) {
+										if(bodyObj.trains[i].actarr === "Source") {
+											if(bodyObj.trains[i].delayarr === "RIGHT TIME") {
+												sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].schdep + " No Delay")
+											}
+											else {
+												sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].schdep + " delayed by: " + bodyObj.trains[i].delayarr)                                            
+											}
+										}
+										else {
+											if(bodyObj.trains[i].delayarr === "RIGHT TIME") {
+												sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].actarr + " No Delay")                  
+											}
+											else {
+												sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].actarr + " was delayed by: " + bodyObj.trains[i].delayarr)                                                             
+											}
+										}
+									}
+									console.log(bodyObj.trains[i].name)
+								}
+							}
+						})
+					}
+
 					else if(line.split(" ")[0].match(/pnr/g))
 					{
-                        request({
-                            url: "https://api.railwayapi.com/v2/pnr-status/pnr/"+line.split(" ")[1]+"/apikey/a32b7zrczw/",
-                            method: "GET",
-                
-                        }, function (error, response, body) {
-                            if (error) {
-                                console.log(error)
-                            }
-                            else {
-                                var bodyObj = JSON.parse(body)
-                                var times;
-                                if(bodyObj.response_code == 404) {
-                                    sendTextMessage(sender, "This is not a valid pnr")
-                                }
-                                else {
+						request({
+							url: "https://api.railwayapi.com/v2/pnr-status/pnr/"+line.split(" ")[1]+"/apikey/a32b7zrczw/",
+							method: "GET",
+
+						}, function (error, response, body) {
+							if (error) {
+								console.log(error)
+							}
+							else {
+								var bodyObj = JSON.parse(body)
+								var times;
+								if(bodyObj.response_code == 404) {
+									sendTextMessage(sender, "This is not a valid pnr")
+								}
+								else {
 									//setTimeout(function() {
 										sendTextMessage(sender, "Train: "+bodyObj.train.name+" - "+bodyObj.train.number )
 									//},100);
@@ -211,7 +211,7 @@ app.post('/webhook/', function (req, res) {
 									//setTimeout(function() {
 										if(bodyObj.chart_prepared==true)
 											sendTextMessage(sender, "CHART PREPARED")
-									
+
 										else
 											sendTextMessage(sender, "CHART NOT PREPARED")
 									//},300);
@@ -221,30 +221,31 @@ app.post('/webhook/', function (req, res) {
 										j++;
 										//setTimeout(function() {
 											if(bodyObj.passengers[i].current_status)
-													sendTextMessage(sender, "Passenger " + j +": "+bodyObj.passengers[i].current_status)	
+												sendTextMessage(sender, "Passenger " + j +": "+bodyObj.passengers[i].current_status)	
 										//},200);	
 									}
-                                }
-                            }
-                        })
-                    }
+								}
+							}
+						})
+					}
 
-                    else if(line.split(" ")[0].match(/save/g) && line.split(" ")[1].match(/pnr/g)) {
-                    	var pnrNumber = line.split(" ")[2];
-                    	if(name != null)
-                    		var query = client.query("INSERT INTO PNR(UserID, firstname, pnr) values($1, $2, $3)", [sender, name, pnrNumber]);
-                    	sendTextMessage(sender, "pnr saved, for information about your train, just type in - my train status");
-                    	client.query('SELECT * FROM PNR', function(err, result) {
-                    		//done();
-                    		if(err) return console.log(err);
-                    		console.log(result.rows);
-                    	});
-                    }
+					else if(line.split(" ")[0].match(/save/g) && line.split(" ")[1].match(/pnr/g)) {
+						var pnrNumber = line.split(" ")[2];
+						if(name != null) {
+								client.query('SELECT firstname FROM PNR WHERE firstname='+name, function(err, result) {
+                    			if(err) {
+                    				var query = client.query("INSERT INTO PNR(UserID, firstname, pnr) values($1, $2, $3)", [sender, name, pnrNumber]);
+                    				sendTextMessage(sender, "pnr saved, for information about your train, just type in - my train status");
+                    			}
+                    			sendTextMessage(sender, "You already have a pnr saved");
+                    		});
+						}
+					}
 				}
 			}
 		})
-	}
-	res.sendStatus(200)
+}
+res.sendStatus(200)
 })
 
 
@@ -256,7 +257,7 @@ function sendTextMessage(sender, text) {
 		qs: {access_token:token},
 		method: 'POST',
 		json: {
-            recipient: {id:sender},
+			recipient: {id:sender},
 			message: messageData,
 		}
 	}, function(error, response, body) {
