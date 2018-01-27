@@ -116,8 +116,12 @@ app.post('/webhook/', function (req, res) {
                             else {
                                 var bodyObj = JSON.parse(body)
                                 let name = bodyObj.position
-                                console.log(name)
-                                sendTextMessage(sender, name);
+                                if(name == "null") {
+                                    sendTextMessage(sender, "Sorry there is some error. Try again with valid train no.");
+                                }
+                                else {
+                                    sendTextMessage(sender, name);
+                                }
                             }
                         })
                     }
@@ -136,31 +140,36 @@ app.post('/webhook/', function (req, res) {
                             else {
                                 var bodyObj = JSON.parse(body)
                                 var times;
-                                if(bodyObj.trains.length > 3) {
-                                    times = 3;
+                                if(bodyObj.total == 0) {
+                                    sendTextMessage(sender, "No trains to show")
                                 }
                                 else {
-                                    times = bodyObj.trains.length;
-                                }
-                                for (var i=0; i<times; i++) {
-                                    if(bodyObj.trains[i].actarr === "Source") {
-                                        if(bodyObj.trains[i].delayarr === "RIGHT TIME") {
-                                            sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].schdep + "No Delay")
-                                        }
-                                        else {
-                                            sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].schdep + " delayed by: " + bodyObj.trains[i].delayarr)                                            
-                                        }
-                                   }
+                                    if(bodyObj.trains.length > 3) {
+                                        times = 3;
+                                    }
                                     else {
-                                        if(bodyObj.trains[i].delayarr === "RIGHT TIME") {
-                                            sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].actarr + "No Delay")                  
-                                        }
+                                        times = bodyObj.trains.length;
+                                    }
+                                    for (var i=0; i<times; i++) {
+                                        if(bodyObj.trains[i].actarr === "Source") {
+                                            if(bodyObj.trains[i].delayarr === "RIGHT TIME") {
+                                                sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].schdep + " No Delay")
+                                            }
+                                            else {
+                                                sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].schdep + " delayed by: " + bodyObj.trains[i].delayarr)                                            
+                                            }
+                                    }
                                         else {
-                                            sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].actarr + " was delayed by: " + bodyObj.trains[i].delayarr)                                                             
+                                            if(bodyObj.trains[i].delayarr === "RIGHT TIME") {
+                                                sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].actarr + " No Delay")                  
+                                            }
+                                            else {
+                                                sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].actarr + " was delayed by: " + bodyObj.trains[i].delayarr)                                                             
+                                            }
                                         }
                                     }
+                                    console.log(bodyObj.trains[i].name)
                                 }
-                                console.log(bodyObj.trains[i].name)
                             }
                         })
                     }
