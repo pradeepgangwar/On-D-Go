@@ -234,8 +234,9 @@ app.post('/webhook/', function (req, res) {
 						if(name != null) {
 							var q1 = client.query('SELECT * FROM PNR WHERE firstname='+name);
 							console.log(q1);
-							if(q1) {
-								sendTextMessage(sender, "You already have a pnr saved");
+							if(q1.length > 0) {
+								if(q1) 
+									sendTextMessage(sender, "You already have a pnr saved");
 							}
 							else {
 								var query = client.query("INSERT INTO PNR(UserID, firstname, pnr) values($1, $2, $3)", [sender, name, pnrNumber]);
