@@ -36,6 +36,8 @@ client.connect();
 
 client.query("CREATE TABLE IF NOT EXISTS userData(firstname varchar(100))");
 
+const token = process.env.FB_PAGE_ACCESS_TOKEN
+
 
 app.post('/webhook/', function (req, res) {
 	let messaging_events = req.body.entry[0].messaging
@@ -72,7 +74,7 @@ app.post('/webhook/', function (req, res) {
 	res.sendStatus(200)
 })
 
-const token = process.env.FB_PAGE_ACCESS_TOKEN
+
 
 function sendTextMessage(sender, text) {
 	let messageData = { text:text }
