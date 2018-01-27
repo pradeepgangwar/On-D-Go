@@ -135,12 +135,29 @@ app.post('/webhook/', function (req, res) {
                             }
                             else {
                                 var bodyObj = JSON.parse(body)
-                                for (var i=0; i<3; i++) {
+                                var times;
+                                if(bodyObj.trains.length > 3) {
+                                    times = 3;
+                                }
+                                else {
+                                    times = bodyObj.trains.length;
+                                }
+                                for (var i=0; i<times; i++) {
                                     if(bodyObj.trains[i].actarr === "Source") {
-                                        sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].schdep + " delayed by: " + bodyObj.trains[i].delayarr)
-                                    }
+                                        if(bodyObj.trains[i].delayarr === "RIGHT TIME") {
+                                            sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].schdep + "No Delay")
+                                        }
+                                        else {
+                                            sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].schdep + " delayed by: " + bodyObj.trains[i].delayarr)                                            
+                                        }
+                                   }
                                     else {
-                                        sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].actarr + " was delayed by: " + bodyObj.trains[i].delayarr)                  
+                                        if(bodyObj.trains[i].delayarr === "RIGHT TIME") {
+                                            sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].actarr + "No Delay")                  
+                                        }
+                                        else {
+                                            sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].actarr + " was delayed by: " + bodyObj.trains[i].delayarr)                                                             
+                                        }
                                     }
                                 }
                                 console.log(bodyObj.trains[i].name)
