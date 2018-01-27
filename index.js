@@ -238,13 +238,13 @@ app.post('/webhook/', function (req, res) {
 								}
 								else {
 									var query = client.query("INSERT INTO pnr(UserID, firstname, pnr) values($1, $2, $3)", [sender, name, pnrNumber]);
-									sendTextMessage(sender, "pnr saved, for information about your train, just type in - my train status");
+									sendTextMessage(sender, "pnr saved, for information about your train, just type in - my ticket status");
 								}
 							})
 						}
 					}
 
-					else if(line.split(" ")[0].match(/my/g) && line.split(" ")[1].match(/train/g) && line.split(" ")[2].match(/status/g)) {
+					else if(line.split(" ")[0].match(/my/g) && line.split(" ")[1].match(/ticket/g) && line.split(" ")[2].match(/status/g)) {
 						client.query("SELECT pnr FROM PNR WHERE firstname='"+name+"'", function(err, result) {
 							if(result.rows.length > 0) {
 								console.log(result);
@@ -291,7 +291,7 @@ app.post('/webhook/', function (req, res) {
 						})
 							}
 							else {
-								sendTextMessage(sender, "You haven't saved any pnr, save one by entering as follows - pnr <pnr-number>")
+								sendTextMessage(sender, "You haven't saved any pnr, save one by entering as follows - save pnr <pnr-number>")
 							}
 						})
 					}
