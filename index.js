@@ -88,7 +88,16 @@ app.post('/webhook/', function (req, res) {
 					}
 					else if(line.match(/train/g))
 					{
-						sendTextMessage(sender, "1. For live status of train say: train <train_no> <date-in DD-MM-YYYY>");
+                        sendTextMessage(sender, "1. For live status of train say:");
+                        setTimeout(function() {
+							sendTextMessage(sender, " train <train_no> <date-in DD-MM-YYYY>");
+                        }, 200);
+                        setTimeout(function() {
+							sendTextMessage(sender, "2. To get list of trains departuring at a window of given hours from given station (max 4 hrs)");
+						}, 300);
+						setTimeout(function() {
+							sendTextMessage(sender, "arriving <station_code> <hours_window>");
+						}, 400);
                     }
                     
 					else if(line.match(/status/g))
@@ -127,7 +136,7 @@ app.post('/webhook/', function (req, res) {
                             else {
                                 var bodyObj = JSON.parse(body)
                                 for (var i=0; i<3; i++) {
-                                    sendTextMessage(sender, "Train Name: " + bodyObj.trains[i].name)
+                                    sendTextMessage(sender, bodyObj.trains[i].name + " at " + bodyObj.trains[i].actarr)
                                 }
                                 console.log(bodyObj.trains[i].name)
                             }
