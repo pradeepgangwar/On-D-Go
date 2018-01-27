@@ -59,9 +59,8 @@ app.post('/webhook/', function (req, res) {
 			} else{
 				var bodyObj = JSON.parse(body)
 				let name = bodyObj.first_name
-				let timeZone = bodyObj.timezone
-				console.log("TimeZone " + timeZone);
-				if (event.message && event.message.text) {
+
+                if (event.message && event.message.text) {
 					let text = event.message.text
 					console.log("Sender ID: " + sender + " " + name);
 					var line = text.toLowerCase();
@@ -93,15 +92,24 @@ app.post('/webhook/', function (req, res) {
 					}
 					else if(line.match(/pnr/g))
 					{
-							$.ajax({
-							  url : "https://api.railwayapi.com/v2/pnr-status/pnr/"+line.split(" ")[1]+"/apikey/a32b7zrczw/",
-							  type : 'GET',
-							  dataType : 'jsonp',
-							  success : function(data) {
-									sendTextMessage(sender, data.from_station.name);
-							  }
-							  
-							});
+                        request({
+                            url: "https://api.railwayapi.com/v2/pnr-status/pnr/"+line.split(" ")[1]+"/apikey/a32b7zrczw/",
+                            qs: {
+                                fields: "from_station.name"
+                            },
+                            method: "GET",
+                
+                        }, function (error, response, body) {
+                            if (error) {
+                                console.log(error)
+                            }
+                            else {
+                                var bodyObj = JSON.parse(body)
+                                let name = bodyObj.from_station.name
+                                console.log(name)
+                                sendTextMessage(sender, name);
+                            }
+                        })
 					}
 				}
 			}
