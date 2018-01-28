@@ -74,13 +74,12 @@ my next station
 update pnr <new-pnr-number>
 ```
 
-# Screen Shots :
+### Contributors
 
-![pic2](pic2.png)
-![pic1](pic1.png)
-![pic3](pic3.png)
-
-
+Pradeep Gangwar
+A.S Gagan Ganapathy
+Arindam Das Modak
+Agam dwivedi
 
 
 
