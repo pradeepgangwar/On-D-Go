@@ -6,7 +6,7 @@ On-D-Go.ai is Messenger Bot aims to provide complete information about your next
 
 ### BASIC QUERIES THE BOT CAN ADDRESS :
 
-![Demo1](https://drive.google.com/open?id=1N4UvVcgc__35c_OIxGMW7IA5fXGwi_Yk)
+[Demo1](https://drive.google.com/open?id=1N4UvVcgc__35c_OIxGMW7IA5fXGwi_Yk)
 
 ## Start a conversation by sending Hey!
 
@@ -42,7 +42,7 @@ trains from ALD to NDLS on 29-01-2018
 
 ### SIMPLY SAVE PNR & LET THE BOT DO EVERYTHING :
 
-![Demo2](https://drive.google.com/open?id=1Ma8tfUOU4tgESgdL-oy1--1rNT3N6FMD)
+[Demo2](https://drive.google.com/open?id=1Ma8tfUOU4tgESgdL-oy1--1rNT3N6FMD)
 
 ## Save your PNR number , bot saves it in its database and uses it to address user's further queries.
 
