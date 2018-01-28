@@ -69,20 +69,12 @@ app.post('/webhook/', function (req, res) {
 						// 	sendTextMessage(sender, "I can help you keep track of your daily routine and make sure they're done in time!");
 						// }, 200);
 						setTimeout(function() {
-							sendTextMessage(sender, "Enter TRAIN to see all the serivces we provide! :)");
+							sendTextMessage(sender, "Enter SERVICES to see all the serivces we provide! :)");
 						}, 300);
 						
 					}
-					else if(line.match(/add/g) && line.split(" ")[1].match(/office/g)) {
-						sendTextMessage(sender, "This is how you can add ... ");
-						setTimeout(function() {
-							sendTextMessage(sender, "<Time> <From> to <To> by <Mode>");
-						}, 200);
-						setTimeout(function() {
-							sendTextMessage(sender, "Eg: 9am allahabad to lucknow by car");
-						}, 300);
-					}
-					else if(line.split(" ")[0].match(/train/g))
+
+					else if(line.split(" ")[0].match(/services/g))
 					{
 						sendTextMessage(sender, "1. For live status of train say: status <train_no> <date-in DD-MM-YYYY>");
 						
@@ -266,10 +258,8 @@ app.post('/webhook/', function (req, res) {
 											sendTextMessage(sender, "This is not a valid pnr")
 										}
 										else {
-									//setTimeout(function() {
 										sendTextMessage(sender, "Train: "+bodyObj.train.name+" - "+bodyObj.train.number )
-									//},100);
-									//setTimeout(function() {
+								
 										sendTextMessage(sender, "DOJ: "+bodyObj.doj)
 									//},200);
 									//setTimeout(function() {
@@ -442,7 +432,7 @@ app.post('/webhook/', function (req, res) {
 						})				
 					}
 					
-					else if(line.split(" ")[1].match(/from/g) && line.split(" ")[3].match(/to/g) && line.split(" ")[5].match(/on/g))
+					else if(line.match(/from/g) && line.match(/to/g) && line.match(/on/g))
 					{
 							request({
 							url: "https://api.railwayapi.com/v2/between/source/"+line.split(" ")[2]+"/dest/"+line.split(" ")[4]+"/date/"+line.split(" ")[6]+"/apikey/a32b7zrczw/",
