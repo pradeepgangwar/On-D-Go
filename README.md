@@ -4,7 +4,7 @@
 
 On-D-Go.ai is Messenger Bot aims to provide complete information about your next train, thus helping you have a hassle free and a "happy journey".
 
-# BASIC QUERIES THE BOT CAN ADDRESS :
+# Basic queries the bot can address :
 
 [Demo1](https://drive.google.com/open?id=1N4UvVcgc__35c_OIxGMW7IA5fXGwi_Yk)
 
@@ -40,7 +40,7 @@ trains from ALD to NDLS on 29-01-2018
 
 ---
 
-# SIMPLY SAVE PNR & LET THE BOT DO EVERYTHING :
+# Simply save your PNR & let the bot handle everything :
 
 [Demo2](https://drive.google.com/open?id=1Ma8tfUOU4tgESgdL-oy1--1rNT3N6FMD)
 
@@ -73,6 +73,12 @@ my next station
 ```sh
 update pnr <new-pnr-number>
 ```
+
+# Screen Shots :
+
+![pic2](pic2.png)
+![pic1](pic1.png)
+![pic3](pic3.png)
 
 
 
