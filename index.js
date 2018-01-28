@@ -65,16 +65,13 @@ app.post('/webhook/', function (req, res) {
 					var line = text.toLowerCase();
 					if(line.match(/hi/g) || line.match(/hello/g) || line.match(/hey/g)) {
 						sendTextMessage(sender, "Hey " + name + "!");
+						// setTimeout(function() {
+						// 	sendTextMessage(sender, "I can help you keep track of your daily routine and make sure they're done in time!");
+						// }, 200);
 						setTimeout(function() {
-							sendTextMessage(sender, "I can help you keep track of your daily routine and make sure they're done in time!");
-						}, 200);
-						setTimeout(function() {
-							sendTextMessage(sender, "Type help to see  what I can do for you :)");
+							sendTextMessage(sender, "Enter TRAIN to see all the serivces we provide! :)");
 						}, 300);
 						
-					}
-					else if(line.match(/help/g)) {
-						sendTextMessage(sender, "Fuck help");
 					}
 					else if(line.match(/add/g) && line.split(" ")[1].match(/office/g)) {
 						sendTextMessage(sender, "This is how you can add ... ");
@@ -438,6 +435,10 @@ app.post('/webhook/', function (req, res) {
 								sendTextMessage(sender, "You haven't saved any pnr, save one by entering as follows - save pnr <pnr-number>")
 							}
 						})				
+					}
+
+					else {
+						sendTextMessage(sender, "I don't seem to understand your query ... :/ Please Try Again");
 					}
 
 				}
