@@ -314,6 +314,73 @@ app.post('/webhook/', function (req, res) {
 							}
 						})
 					}
+
+					else if(line.split(" ")[0].match(/my/g) && line.split(" ")[1].match(/train/g) && line.split(" ")[2].match(/status/g)) {
+						client.query("SELECT pnr FROM PNR WHERE firstname='"+name+"'", function(err, result) {
+							if(result.rows.length > 0) {
+								console.log(result);
+								sendTextMessage(sender, "Your pnr is : " + result.rows[0].pnr)
+								request({
+									url: "https://api.railwayapi.com/v2/pnr-status/pnr/"+result.rows[0].pnr+"/apikey/a32b7zrczw/",
+									method: "GET",
+
+								}, function (error, response, body) {
+									if (error) {
+										console.log(error)
+									}
+									else {
+										var bodyObj = JSON.parse(body)
+										var times;
+										if(bodyObj.response_code == 404) {
+											sendTextMessage(sender, "This is not a valid pnr")
+										}
+										else {
+											var TrainNumber = bodyObj.train.number;
+											var doj = bodyObj.doj;
+											var StationCode = bodyObj.reservation_upto.code;
+
+											request({
+												url: "https://api.railwayapi.com/v2/live/train/"+TrainNumber+"/date/"+doj+"/apikey/a32b7zrczw/",
+												method: "GET",
+
+											}, function (error, response, body) {
+												if (error) {
+													console.log(error)
+												}
+												else {
+													var bodyObj = JSON.parse(body)
+													let name = bodyObj.position
+													var ArrivalTime;
+
+													for(var i=0;i<bodyObj.route.length;i++) {
+														if(bodyObj.route[i].station.code == StationCode) {
+															ArrivalTime = bodyObj.route[i].actarr;
+														}
+													}
+
+													if(name == null) {
+														sendTextMessage(sender, "Sorry there is some error. Try again with valid train no.");
+													}
+													else {
+														sendTextMessage(sender, name);
+														sendTextMessage(sender, "Arriving at " + ArrivalTime);
+													}
+												}
+											})
+										}
+									}
+								})
+							}
+							else {
+								sendTextMessage(sender, "You haven't saved any pnr, save one by entering as follows - save pnr <pnr-number>")
+							}
+						})
+					}
+
+					// else if(line.split(" ")[0].match(/my/g) && line.split(" ")[1].match(/next/g) && line.split(" ")[2].match(/station/g)) {
+						
+					// }
+
 				}
 			}
 		})
