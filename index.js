@@ -5,6 +5,8 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
 var pg = require("pg");
+var path    = require("path");
+
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -14,9 +16,23 @@ app.use(bodyParser.urlencoded({extended: false}))
 // Process application/json
 app.use(bodyParser.json())
 
+//DB
+
+var conString = process.env.DATABASE_URL;
+var client = new pg.Client(conString);
+client.connect();
+
+client.query("CREATE TABLE IF NOT EXISTS PNR(UserID varchar(100), firstname varchar(100), pnr varchar(100))");
+
+const token = process.env.FB_PAGE_ACCESS_TOKEN
+
 // Index route
 app.get('/', function (req, res) {
 	res.send('Hello world, I am a chat bot')
+})
+
+app.get('/privacy-policy', function (req, res) {
+	res.sendFile(path.join(__dirname+'/privacy-policy.html'))
 })
 
 // for Facebook verification
@@ -26,17 +42,6 @@ app.get('/webhook/', function (req, res) {
 	}
 	res.send('Error, wrong token')
 })
-
-//DB
-
-var conString = process.env.DATABASE_URL;
-var client = new pg.Client(conString);
-client.connect();
-
-
-client.query("CREATE TABLE IF NOT EXISTS PNR(UserID varchar(100), firstname varchar(100), pnr varchar(100))");
-
-const token = process.env.FB_PAGE_ACCESS_TOKEN
 
 app.post('/webhook/', function (req, res) {
 	let messaging_events = req.body.entry[0].messaging
