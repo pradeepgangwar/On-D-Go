@@ -8,25 +8,31 @@ On-D-Go.ai is Messenger Bot aims to provide complete information about your next
 
 [gif]
 
-## (1) Start a conversation by sending Hey!
+## Start a conversation by sending Hey!
 
 ```sh
 Hey
 ```
 
-(2) Ask the about the live status of any train by just providing it the train number and the date of journey.
+## Ask the about the live status of any train by just providing it the train number and the date of journey.
 
-## status 14511 27-01-2018
+```sh
+status 14511 27-01-2018
+```
 
-(3) Check the PNR Status 
+## Check the PNR Status 
 
-## pnr 2503704980
+```sh
+pnr 2503704980
+```
 
-(4) List all the trains reaching a particular Station within a window of specified hours.
+## List all the trains reaching a particular Station within a window of specified hours.
 
-## arriving ALD 3
+```sh
+arriving ALD 3
+```
 
-(5) List all trains travelling from a source to a destination specified by the user along with the date of journey.
+## List all trains travelling from a source to a destination specified by the user along with the date of journey.
 
 ## trains from ALD to NDLS on 29-01-2018
 
@@ -36,25 +42,35 @@ Hey
 
 [gif]
 
-(1) Save your PNR number , bot saves it in its database and uses it to address user's further queries.
+## Save your PNR number , bot saves it in its database and uses it to address user's further queries.
 
-## save pnr 2503704980
+```sh
+save pnr 2503704980
+```
 
-(2) Now you can check your ticket status, returns the pnr, train's name, train number, confirmation status of the seats of each passenger and the status of the chart if prepared or not.
+## Now you can check your ticket status, returns the pnr, train's name, train number, confirmation status of the seats of each passenger and the status of the chart if prepared or not.
 
-## my ticket status
+```sh
+my ticket status
+```
 
-(3) Also check your train's status, returns the current position of the train and informs the user if any delay + returns the station it is arriving at!
+## Also check your train's status, returns the current position of the train and informs the user if any delay + returns the station it is arriving at!
 
-## my train status
+```sh
+my train status
+```
 
-(4) While you're travelling user can check the time the train will reach the next station along with name of the next station.
+## While you're travelling user can check the time the train will reach the next station along with name of the next station.
 
-## my next station
+```sh
+my next station
+```
 
-(5) If by mistake you save a wrong pnr or want to edit your pnr number.
+## If by mistake you save a wrong pnr or want to edit your pnr number.
 
-## update pnr <new-pnr-number>
+```sh
+update pnr <new-pnr-number>
+```
 
 
 
