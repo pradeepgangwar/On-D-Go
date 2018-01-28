@@ -76,9 +76,9 @@ update pnr <new-pnr-number>
 
 # Screen Shots :
 
-![pic2](pic2.png)
-![pic1](pic1.png)
-![pic3](pic3.png)
+![pic2](pic2.png =100x20)
+![pic1](pic1.png =100x20)
+![pic3](pic3.png =100x20)
 
 
 
