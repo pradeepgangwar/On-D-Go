@@ -76,10 +76,10 @@ update pnr <new-pnr-number>
 
 ### Contributors
 
-Pradeep Gangwar
-A.S Gagan Ganapathy
-Arindam Das Modak
-Agam dwivedi
+- Pradeep Gangwar
+- A.S Gagan Ganapathy
+- Arindam Das Modak
+- Agam dwivedi
 
 
 
