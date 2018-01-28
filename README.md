@@ -2,18 +2,59 @@
 
 # On-D-Go.ai (Messenger Bot)
 
-On-D-Go is Messenger Bot which aims to track your daily whereabouts such as if you want to reach your office by 9am ,  you can ask the bot to inform you about the traffic details on the go before you leave home.
+On-D-Go.ai is Messenger Bot aims to provide complete information about your next train, thus helping you have a hassle free and a "happy journey".
 
-## WHAT THE USER NEEDS TO DO:
+## BASIC QUERIES THE BOT CAN ADDRESS :
 
-1. Open Messenger text the Bot "Hey!"
-2. Bot responds with a message so as to what the user needs to keep track about.
-3. User inputs - "i need to reach office by 9 am"
-4. Bot asks for the necessary information such as his HOME address , OFFICE address
-5. Using Google maps API we calculate the time between the two locations considering the traffic at that moment
-6. Thus informing the user beforehand about the traffic conditions by a notif so he/she leaves early and reaches the destination on time.
-7. Also if traffic is very bad, our bot shall suggest alternate ways to commute such as metro/bus
-8. The user can also save his office, home address for quicker use next time which gets stored in the db
+[gif]
+
+(1) Start a conversation by sending Hey!
+
+## Hey
+
+(2) Ask the about the live status of any train by just providing it the train number and the date of journey.
+
+## status 14511 27-01-2018
+
+(3) Check the PNR Status 
+
+## pnr 2503704980
+
+(4) List all the trains reaching a particular Station within a window of specified hours.
+
+## arriving ALD 3
+
+(5) List all trains travelling from a source to a destination specified by the user along with the date of journey.
+
+## trains from ALD to NDLS on 29-01-2018
+
+---
+
+## SIMPLY SAVE PNR & LET THE BOT DO EVERYTHING :
+
+[gif]
+
+(1) Save your PNR number , bot saves it in its database and uses it to address user's further queries.
+
+## save pnr 2503704980
+
+(2) Now you can check your ticket status, returns the pnr, train's name, train number, confirmation status of the seats of each passenger and the status of the chart if prepared or not.
+
+## my ticket status
+
+(3) Also check your train's status, returns the current position of the train and informs the user if any delay + returns the station it is arriving at!
+
+## my train status
+
+(4) While you're travelling user can check the time the train will reach the next station along with name of the next station.
+
+## my next station
+
+(5) If by mistake you save a wrong pnr or want to edit your pnr number.
+
+## update pnr <new-pnr-number>
 
 
-We also plan to integrate flight, train and bus information, if user inputs PNR number he/shes shall get all the information about their train and shall be informed beforehand about the running status of the train and suggest the user a time when he/she must leave to reach the station.
+
+
+
