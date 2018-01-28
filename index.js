@@ -73,7 +73,6 @@ app.post('/webhook/', function (req, res) {
 						}, 300);
 						
 					}
-
 					else if(line.split(" ")[0].match(/train/g))
 					{
 						sendTextMessage(sender, "1. For live status of train say: status <train_no> <date-in DD-MM-YYYY>");
