@@ -1,4 +1,4 @@
-![](logo.png)
+![](assets/logo.png)
 
 # On-D-Go.ai
 

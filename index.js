@@ -21,7 +21,7 @@ app.get('/', function (req, res) {
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
-	if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
+	if (req.query['hub.verify_token'] === process.env.VERIFY_TOKEN) {
 		res.send(req.query['hub.challenge'])
 	}
 	res.send('Error, wrong token')
@@ -29,7 +29,7 @@ app.get('/webhook/', function (req, res) {
 
 //DB
 
-var conString = "postgres://wxjvrhqrbqjros:a24eabb637dc812603e6b9b927f78fb15d1be6cd5196f2c2bb11f4695871fca2@ec2-54-225-230-142.compute-1.amazonaws.com:5432/d5ot44f3mlrilt";
+var conString = process.env.DATABASE_URL;
 var client = new pg.Client(conString);
 client.connect();
 
@@ -63,7 +63,7 @@ app.post('/webhook/', function (req, res) {
 					let text = event.message.text
 					console.log("Sender ID: " + sender + " " + name);
 					var line = text.toLowerCase();
-					if(line.match(/hi/g) || line.match(/hello/g) || line.match(/hey/g)) {
+					if(line.match(/hi/g) || line.match(/hello/g) || line.match(/hey/g)|| line.match(/get/g)) {
 						sendTextMessage(sender, "Hey " + name + "!");
 						// setTimeout(function() {
 						// 	sendTextMessage(sender, "I can help you keep track of your daily routine and make sure they're done in time!");
@@ -85,20 +85,17 @@ app.post('/webhook/', function (req, res) {
 							sendTextMessage(sender, "3. Check pnr status say : pnr <10-digit-pnr>");
 						}, 300);
 						
-						setTimeout(function() {
-							sendTextMessage(sender, "4. Find trains between two stations say: trains from <source station code> to <destination station code> on <dd-mm-yyyy>");
-						}, 400);
+						// setTimeout(function() {
+						// 	sendTextMessage(sender, "4. Find trains between two stations say: trains from <source station code> to <destination station code> on <dd-mm-yyyy>");
+						// }, 400);
 
 						setTimeout(function() {
 							sendTextMessage(sender, "OR");
 						}, 500);
 						
 						setTimeout(function() {
-							sendTextMessage(sender, "5. Simply Save your PNR for no further hassle : save pnr <10-digit-pnr>");
-						}, 600);
-						
-						
-						
+							sendTextMessage(sender, "4. Simply Save your PNR for no further hassle : save pnr <10-digit-pnr>");
+						}, 600);						
 					}
 
 					else if(line.split(" ")[0].match(/status/g))
