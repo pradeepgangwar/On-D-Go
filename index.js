@@ -84,28 +84,24 @@ app.post('/webhook/', function (req, res) {
 					}
 					else if(line.split(" ")[0].match(/train/g))
 					{
-						sendTextMessage(sender, "1. For live status of train say:");
+						sendTextMessage(sender, "1. For live status of train say: status <train_no> <date-in DD-MM-YYYY>");
+						
 						setTimeout(function() {
-							sendTextMessage(sender, " status <train_no> <date-in DD-MM-YYYY>");
+							sendTextMessage(sender, "2. To get list of trains departuring at a window of given hours from given station (max 4 hrs): arriving <station_code> <hours_window>");
 						}, 200);
+						
 						setTimeout(function() {
-							sendTextMessage(sender, "2. To get list of trains departuring at a window of given hours from given station (max 4 hrs)");
+							sendTextMessage(sender, "3. Check pnr status say : pnr <10-digit-pnr>");
 						}, 300);
+
 						setTimeout(function() {
-							sendTextMessage(sender, "arriving <station_code> <hours_window>");
+							sendTextMessage(sender, "OR");
+						}, 300);
+						
+						setTimeout(function() {
+							sendTextMessage(sender, "4. Simply Save your PNR for no further hassle : save pnr <10-digit-pnr>");
 						}, 400);
-						setTimeout(function() {
-							sendTextMessage(sender, "3. Check pnr status say:");
-						}, 500);
-						setTimeout(function() {
-							sendTextMessage(sender, "pnr <10-digit-pnr>");
-						}, 600);
-						setTimeout(function() {
-							sendTextMessage(sender, "4. Simply Save your PNR");
-						}, 500);
-						setTimeout(function() {
-							sendTextMessage(sender, "save pnr <10-digit-pnr>");
-						}, 600);
+						
 					}
 
 					else if(line.split(" ")[0].match(/status/g))
@@ -235,7 +231,9 @@ app.post('/webhook/', function (req, res) {
 								}
 								else {
 									var query = client.query("INSERT INTO pnr(UserID, firstname, pnr) values($1, $2, $3)", [sender, name, pnrNumber]);
-									sendTextMessage(sender, "pnr saved, for information about your train, just type in - my ticket status");
+									sendTextMessage(sender, "PNR SAVED :)");
+									sendTextMessage(sender, "To see all your ticket info : my ticket status");
+									sendTextMessage(sender, "To Check the status of your train : my train status");
 								}
 							})
 						}
@@ -356,7 +354,7 @@ app.post('/webhook/', function (req, res) {
 													}
 
 													if(name == null) {
-														sendTextMessage(sender, "Sorry there is some error. Try again with valid train no.");
+														sendTextMessage(sender, "Make sure you're train is in the next 24-48 hrs for accurate times :)");
 													}
 													else {
 														sendTextMessage(sender, name);
@@ -419,7 +417,7 @@ app.post('/webhook/', function (req, res) {
 													}
 
 													if(name == null) {
-														sendTextMessage(sender, "Sorry there is some error. Try again with valid train no.");
+														sendTextMessage(sender, "You need to be in the train while you check for the next station :P");
 													}
 													else {
 														//sendTextMessage(sender, name);
