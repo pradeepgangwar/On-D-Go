@@ -8,9 +8,11 @@ On-D-Go.ai is Messenger Bot aims to provide complete information about your next
 
 [gif]
 
-(1) Start a conversation by sending Hey!
+## (1) Start a conversation by sending Hey!
 
-## Hey
+```sh
+Hey
+```
 
 (2) Ask the about the live status of any train by just providing it the train number and the date of journey.
 
