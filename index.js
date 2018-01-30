@@ -76,10 +76,10 @@ app.post('/webhook/', function(req, res) {
                         // 	sendTextMessage(sender, "I can help you keep track of your daily routine and make sure they're done in time!");
                         // }, 200);
                         setTimeout(function() {
-                            sendTextMessage(sender, "Enter train to see all the serivces we provide! :)");
+                            sendTextMessage(sender, "Enter SERVICES to see all the serivces we provide! :)");
                         }, 300);
 
-                    } else if (line.split(" ")[0].match(/train/g)) {
+                    } else if (line.split(" ")[0].match(/services/g)) {
                         sendTextMessage(sender, "1. For live status of train say: status <train_no> <date-in DD-MM-YYYY>");
 
                         setTimeout(function() {
